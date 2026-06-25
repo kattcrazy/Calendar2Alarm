@@ -1,0 +1,22 @@
+# Local build outputs
+/build/
+**/build/
+/.gradle/
+/local.properties
+/dist/
+
+# IDE
+/.idea/
+*.iml
+
+# Kotlin
+/.kotlin/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Release signing (local only)
+keystore.properties
+*.jks
+*.keystore
