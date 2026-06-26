@@ -4,8 +4,6 @@ When normal notifications aren't enough 😂
 
 Calendar2Alarm is a standalone Wear OS app that reads calendar events on your watch and fires full-screen alarms at each event's reminder time, with customisable sound, vibration, and snooze times.
 
-No account or sign-up required. Free. 
-
 See [Installation](docs/INSTALLATION.md) for details on how to install.
 
 ## Features
@@ -15,22 +13,15 @@ See [Installation](docs/INSTALLATION.md) for details on how to install.
 - Choose which synced calendars to use (only calendars with events in the next ~4 weeks appear)
 - Customise alarm snooze duration, sound, and vibration presets
 - Open events in either Google Calendar or Samsung Calendar (viewing only, does not change which app is used for sync).
-- Respects silent modes: alarms are suppressed during Theater mode and Bedtime mode. DND only blocks alarms if your DND policy disallows them.
+- Respects silent modes: alarms are suppressed during Theater mode and Bedtime mode. DND only blocks alarms if your DND settings disallow them.
 
 ## Silent modes (Theater / Bedtime / DND)
 
 | Mode | Behavior |
 |---|---|
-| **Theater mode** | Alarm suppressed (no sound, vibration, or screen) |
+| **Theater mode** | Alarm suppressed |
 | **Bedtime mode** | Alarm suppressed |
 | **DND** | Alarm suppressed only if your DND settings block alarms (many setups allow alarms through) |
-
-Detection uses the Wear OS ModeManager API where available, plus system settings keys:
-
-- **Theater:** `theater_mode_on` (stock Wear, all versions with Theater mode) and `setting_theater_mode_on` (Samsung Modes)
-- **Bedtime:** `bedtime_mode` (stock Wear OS 3+) and `setting_bedtime_mode_running_state` (Samsung Modes)
-
-Requires **Wear OS 3 or later** (API 30+) for Bedtime mode support. Theater mode works on older watches that have the feature. If a watch uses a different settings key, open an issue with `adb shell settings list global | grep -i theater` output.
 
 ## What calendars work?
 
