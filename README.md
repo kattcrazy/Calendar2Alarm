@@ -35,7 +35,7 @@ Calendar2Alarm reads the built-in Wear OS calendar provider, not Samsung or Goog
 
 ## Privacy
 
-Calendar data is read locally from the on-watch calendar provider and preferences and scheduled alarm metadata stay in app storage on the watch.
+Calendar data is read locally on your watch. See the [privacy policy](docs/PRIVACY.md) for details.
 
 ## License
 

@@ -28,17 +28,40 @@ jobs:
       - name: Install SDK packages
         run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
 
-      - name: Build release APK
-        run: chmod +x gradlew && ./gradlew :wear:assembleRelease --no-daemon
+      - name: Configure release signing
+        env:
+          KEYSTORE_BASE64: ${{ secrets.UPLOAD_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.UPLOAD_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.UPLOAD_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.UPLOAD_KEY_PASSWORD }}
+        run: |
+          if [ -z "$KEYSTORE_BASE64" ]; then
+            echo "UPLOAD_KEYSTORE_BASE64 secret is required for signed releases."
+            exit 1
+          fi
+          echo "$KEYSTORE_BASE64" | base64 -d > upload-keystore.jks
+          cat > keystore.properties <<EOF
+          storeFile=upload-keystore.jks
+          storePassword=${KEYSTORE_PASSWORD}
+          keyAlias=${KEY_ALIAS}
+          keyPassword=${KEY_PASSWORD}
+          EOF
 
-      - name: Prepare APK
-        run: cp wear/build/outputs/apk/release/wear-release.apk calendar2alarm-wear.apk
+      - name: Build release APK and AAB
+        run: chmod +x gradlew && ./gradlew :wear:assembleRelease :wear:bundleRelease --no-daemon
+
+      - name: Prepare release artifacts
+        run: |
+          cp wear/build/outputs/apk/release/wear-release.apk calendar2alarm-wear.apk
+          cp wear/build/outputs/bundle/release/wear-release.aab calendar2alarm-wear.aab
 
       - name: Upload to GitHub Release
         if: github.event_name == 'release'
         uses: softprops/action-gh-release@v2
         with:
-          files: calendar2alarm-wear.apk
+          files: |
+            calendar2alarm-wear.apk
+            calendar2alarm-wear.aab
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -47,4 +70,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: calendar2alarm-wear
-          path: calendar2alarm-wear.apk
+          path: |
+            calendar2alarm-wear.apk
+            calendar2alarm-wear.aab

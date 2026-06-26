@@ -51,6 +51,8 @@
     <string name="viewer_samsung">Samsung Calendar</string>
     <string name="credit_by">By Kattcrazy</string>
     <string name="credit_repo">github.com/kattcrazy/Calendar2Alarm</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="privacy_policy_url">https://github.com/kattcrazy/Calendar2Alarm/blob/main/docs/PRIVACY.md</string>
     <string name="alarm_channel_name">Calendar alarms</string>
     <string name="alarm_notification_title">Calendar alarm</string>
     <string name="test_event_title">Team standup</string>

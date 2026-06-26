@@ -3,11 +3,13 @@ package kattcrazy.calendar2alarm
 import android.Manifest
 import android.content.Intent
 import android.content.pm.ApplicationInfo
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -123,6 +125,8 @@ private fun MainScreen(
     val allPermissions = remember(refreshTick) { SetupStatus.hasAllPermissions(context) }
     val enabled = remember(refreshTick) { AppPreferences.isEnabled(context) }
     val closestReminderOnly = remember(refreshTick) { AppPreferences.closestReminderOnly(context) }
+    val privacyPolicyUrl = stringResource(R.string.privacy_policy_url)
+    val privacyPolicyLabel = stringResource(R.string.privacy_policy)
 
     AppScaffold {
         val listState = rememberTransformingLazyColumnState()
@@ -225,6 +229,23 @@ private fun MainScreen(
                 item {
                     CreditFooter(
                         Modifier.fillMaxWidth().transformedHeight(this, transformationSpec),
+                    )
+                }
+                item {
+                    Text(
+                        text = privacyPolicyLabel,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 4.dp, bottom = 8.dp)
+                            .clickable {
+                                context.startActivity(
+                                    Intent(Intent.ACTION_VIEW, Uri.parse(privacyPolicyUrl)),
+                                )
+                            }
+                            .transformedHeight(this, transformationSpec),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        textAlign = TextAlign.Center,
                     )
                 }
                 bottomScrollSpacer(transformationSpec)
