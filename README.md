@@ -40,3 +40,9 @@ Calendar data is read locally on your watch. See the [privacy policy](docs/PRIVA
 ## License
 
 This project uses the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.html). See [LICENSE](LICENSE) for the full legal text.
+
+## About 
+
+When normal notifications aren't enough, what do you do? Please open an issue if something isn't working right or you have an idea.
+
+If this decreases the amount of important meetings you miss... consider supporting me here :)
