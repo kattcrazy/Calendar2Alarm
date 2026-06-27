@@ -8,7 +8,6 @@
     <string name="status_calendar">Calendar access</string>
     <string name="status_notifications">Notifications</string>
     <string name="status_exact_alarms">Exact alarms</string>
-    <string name="status_fsi">Full-screen alarm</string>
     <string name="status_enabled">Enabled</string>
     <string name="summary_events_found">%1$d events with reminders in the next 7 days</string>
     <string name="status_last_resync">Last resync</string>
@@ -38,9 +37,6 @@
     <string name="grant_calendar">Grant calendar</string>
     <string name="grant_notifications">Grant notifications</string>
     <string name="grant_exact_alarms">Grant alarms</string>
-    <string name="grant_fsi">Grant full-screen</string>
-    <string name="fsi_optional_hint">Optional: helps alarms wake the screen when locked. On Wear OS try Settings → Apps → Calendar2Alarm.</string>
-    <string name="fsi_settings_failed">Could not open settings. Try Settings → Apps → Calendar2Alarm on your watch.</string>
     <string name="test_alarm_button">Test alarm</string>
     <string name="save">Save</string>
     <string name="preview">Preview</string>
