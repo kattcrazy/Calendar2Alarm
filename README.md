@@ -8,20 +8,11 @@ See [Installation](docs/INSTALLATION.md) for details on how to install.
 
 ## Features
 
-- Calendar reminders -> alarms: schedules 'alarms' from event reminder times
-- Full-screen alarm UI that turns the screen on, vibrates/rings until you act, and shows dismiss/snooze/event details on screen
-- Choose which synced calendars to use (only calendars with events in the next ~4 weeks appear)
+- Calendar events with notifications set (even if notifications for your calendar app are off) convert to 'alarms'
+- Alarms turn the screen on, vibrates/ring until you act, and show event details
+- Choose which synced calendars to use (only ones with events in the next ~4 weeks appear)
 - Customise alarm snooze duration, sound, and vibration presets
-- Open events in either Google Calendar or Samsung Calendar (viewing only, does not change which app is used for sync).
-- Respects silent modes: alarms are suppressed during Theater mode and Bedtime mode. DND only blocks alarms if your DND settings disallow them.
-
-## Silent modes (Theater / Bedtime / DND)
-
-| Mode | Behavior |
-|---|---|
-| **Theater mode** | Alarm suppressed |
-| **Bedtime mode** | Alarm suppressed |
-| **DND** | Alarm suppressed only if your DND settings block alarms (many setups allow alarms through) |
+- Open events in your calendar app
 
 ## What calendars work?
 
