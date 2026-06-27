@@ -40,12 +40,12 @@ jobs:
             exit 1
           fi
           echo "$KEYSTORE_BASE64" | base64 -d > upload-keystore.jks
-          cat > keystore.properties <<EOF
-          storeFile=upload-keystore.jks
-          storePassword=${KEYSTORE_PASSWORD}
-          keyAlias=${KEY_ALIAS}
-          keyPassword=${KEY_PASSWORD}
-          EOF
+          printf '%s\n' \
+            "storeFile=upload-keystore.jks" \
+            "storePassword=${KEYSTORE_PASSWORD}" \
+            "keyAlias=${KEY_ALIAS}" \
+            "keyPassword=${KEY_PASSWORD}" \
+            > keystore.properties
 
       - name: Build release APK and AAB
         run: chmod +x gradlew && ./gradlew :wear:assembleRelease :wear:bundleRelease --no-daemon
@@ -54,6 +54,17 @@ jobs:
         run: |
           cp wear/build/outputs/apk/release/wear-release.apk calendar2alarm-wear.apk
           cp wear/build/outputs/bundle/release/wear-release.aab calendar2alarm-wear.aab
+
+      - name: Verify upload key signature
+        run: |
+          APKSIGNER="$ANDROID_HOME/build-tools/35.0.0/apksigner"
+          EXPECTED="0c3dd43eba4cf6315ea904fe7335d1eafd7047260eba3af9fd67df0081c0cd82"
+          actual=$("$APKSIGNER" verify --print-certs calendar2alarm-wear.apk 2>&1 | grep -m1 "SHA-256 digest:" | sed 's/.*SHA-256 digest: //' | tr -d ':' | tr '[:upper:]' '[:lower:]')
+          if [ "$actual" != "$EXPECTED" ]; then
+            echo "Wrong signing key: $actual (expected $EXPECTED)"
+            exit 1
+          fi
+          echo "calendar2alarm-wear.apk signed with upload key"
 
       - name: Upload to GitHub Release
         if: github.event_name == 'release'
