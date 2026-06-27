@@ -1,10 +1,13 @@
 package kattcrazy.calendar2alarm
 
 import android.app.AlarmManager
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
+import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import android.Manifest
@@ -35,15 +38,44 @@ object SetupIntents {
         runCatching { context.startActivity(intent) }
     }
 
-    fun openFullScreenIntentSettings(context: Context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            val intent = Intent(Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT).apply {
-                data = Uri.parse("package:${context.packageName}")
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    fun openFullScreenIntentSettings(context: Context): Boolean {
+        val pkg = context.packageName
+        val candidates = buildList {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                add(
+                    Intent(Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT).apply {
+                        data = Uri.fromParts("package", pkg, null)
+                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    },
+                )
             }
-            runCatching { context.startActivity(intent) }
+            add(
+                Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
+                    putExtra(Settings.EXTRA_APP_PACKAGE, pkg)
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                },
+            )
+            add(
+                Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                    data = Uri.fromParts("package", pkg, null)
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                },
+            )
         }
+        for (intent in candidates) {
+            if (!canLaunch(context, intent)) continue
+            try {
+                context.startActivity(intent)
+                return true
+            } catch (e: ActivityNotFoundException) {
+                Log.w(TAG, "No activity for ${intent.action}", e)
+            }
+        }
+        return false
     }
+
+    private fun canLaunch(context: Context, intent: Intent): Boolean =
+        context.packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY) != null
 
     fun openCalendarApp(context: Context, viewer: ViewerApp) {
         context.packageManager.getLaunchIntentForPackage(viewer.packageName)?.let { intent ->
@@ -59,6 +91,8 @@ object SetupIntents {
         }
         context.startActivity(intent)
     }
+
+    private const val TAG = "SetupIntents"
 
     const val REQUEST_CALENDAR = 1001
     const val REQUEST_NOTIFICATIONS = 1002

@@ -39,6 +39,8 @@
     <string name="grant_notifications">Grant notifications</string>
     <string name="grant_exact_alarms">Grant alarms</string>
     <string name="grant_fsi">Grant full-screen</string>
+    <string name="fsi_optional_hint">Optional: helps alarms wake the screen when locked. On Wear OS try Settings → Apps → Calendar2Alarm.</string>
+    <string name="fsi_settings_failed">Could not open settings. Try Settings → Apps → Calendar2Alarm on your watch.</string>
     <string name="test_alarm_button">Test alarm</string>
     <string name="save">Save</string>
     <string name="preview">Preview</string>
@@ -55,8 +57,8 @@
     <string name="privacy_policy_url">https://github.com/kattcrazy/Calendar2Alarm/blob/main/docs/PRIVACY.md</string>
     <string name="alarm_channel_name">Calendar alarms</string>
     <string name="alarm_notification_title">Calendar alarm</string>
-    <string name="test_event_title">Team standup</string>
-    <string name="test_event_desc">Weekly sync with the product team - bring your blockers</string>
+    <string name="test_event_title">Calendar2Alarm</string>
+    <string name="test_event_desc">Full-screen alarms from your calendar reminders on Wear OS</string>
     <string name="open_event_failed">Could not open calendar event</string>
     <string name="alarm_dismiss">Dismiss</string>
     <string name="alarm_snooze">Snooze</string>

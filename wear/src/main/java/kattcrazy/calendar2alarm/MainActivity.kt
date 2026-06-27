@@ -4,8 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.net.Uri
-import android.os.Build
-import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
@@ -90,6 +89,11 @@ class MainActivity : ComponentActivity() {
                         }
                     },
                     onTestAlarm = { TestAlarmLauncher.show(this) },
+                    onOpenFullScreenIntent = {
+                        if (!SetupIntents.openFullScreenIntentSettings(this)) {
+                            Toast.makeText(this, R.string.fsi_settings_failed, Toast.LENGTH_LONG).show()
+                        }
+                    },
                 )
             }
         }
@@ -112,6 +116,7 @@ private fun MainScreen(
     onToggleClosestReminder: (Boolean) -> Unit,
     onRequestCalendar: () -> Unit,
     onRequestNotifications: () -> Unit,
+    onOpenFullScreenIntent: () -> Unit,
     onTestAlarm: () -> Unit,
 ) {
     val context = LocalContext.current
@@ -157,7 +162,6 @@ private fun MainScreen(
                         hasCalendar = hasCalendar,
                         hasNotif = hasNotif,
                         hasExact = hasExact,
-                        hasFsi = hasFsi,
                         onRequestCalendar = onRequestCalendar,
                         onRequestNotifications = onRequestNotifications,
                     )
@@ -211,6 +215,37 @@ private fun MainScreen(
                             transformation = SurfaceTransformation(transformationSpec),
                         ) { Text(stringResource(R.string.alarm_settings)) }
                     }
+                    item {
+                        PermissionStatusLine(
+                            label = stringResource(R.string.status_fsi),
+                            granted = hasFsi,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 12.dp, vertical = 2.dp)
+                                .transformedHeight(this, transformationSpec),
+                        )
+                    }
+                    if (!hasFsi) {
+                        item {
+                            Text(
+                                text = stringResource(R.string.fsi_optional_hint),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 12.dp, vertical = 4.dp)
+                                    .transformedHeight(this, transformationSpec),
+                            )
+                        }
+                        item {
+                            Button(
+                                onClick = onOpenFullScreenIntent,
+                                modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp).transformedHeight(this, transformationSpec),
+                                transformation = SurfaceTransformation(transformationSpec),
+                            ) { Text(stringResource(R.string.grant_fsi)) }
+                        }
+                    }
                 }
 
                 if (isDebug) {
@@ -260,7 +295,6 @@ private fun TransformingLazyColumnScope.permissionsSection(
     hasCalendar: Boolean,
     hasNotif: Boolean,
     hasExact: Boolean,
-    hasFsi: Boolean,
     onRequestCalendar: () -> Unit,
     onRequestNotifications: () -> Unit,
 ) {
@@ -299,15 +333,22 @@ private fun TransformingLazyColumnScope.permissionsSection(
             ) { Text(stringResource(R.string.grant_exact_alarms)) }
         }
     }
-    if (!hasFsi) {
-        item {
-            Button(
-                onClick = { SetupIntents.openFullScreenIntentSettings(context) },
-                modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp).transformedHeight(this, spec),
-                transformation = SurfaceTransformation(spec),
-            ) { Text(stringResource(R.string.grant_fsi)) }
-        }
-    }
+}
+
+@Composable
+private fun PermissionStatusLine(
+    label: String,
+    granted: Boolean,
+    modifier: Modifier = Modifier,
+) {
+    val value = stringResource(if (granted) R.string.status_yes else R.string.status_no)
+    Text(
+        text = "$label: $value",
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        textAlign = TextAlign.Center,
+        modifier = modifier,
+    )
 }
 
 @Composable

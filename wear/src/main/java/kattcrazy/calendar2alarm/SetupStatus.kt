@@ -5,7 +5,6 @@ import android.app.AlarmManager
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
-import android.provider.Settings
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 
@@ -23,16 +22,31 @@ object SetupStatus {
     }
 
     fun canUseFullScreenIntent(context: Context): Boolean {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE) return true
+        if (hasFullScreenIntentPermissionGrant(context)) return true
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE) return false
         val nm = context.getSystemService(Context.NOTIFICATION_SERVICE) as android.app.NotificationManager
         return nm.canUseFullScreenIntent()
     }
 
-    fun hasAllPermissions(context: Context): Boolean =
-        hasCalendarPermission(context) &&
-            hasNotificationPermission(context) &&
-            canScheduleExactAlarms(context) &&
-            canUseFullScreenIntent(context)
+    /** Play-approved alarm apps are often granted FSI at install; Wear builds may not reflect that in canUseFullScreenIntent(). */
+    private fun hasFullScreenIntentPermissionGrant(context: Context): Boolean {
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.USE_FULL_SCREEN_INTENT) ==
+            PackageManager.PERMISSION_GRANTED
+        ) {
+            return true
+        }
+        val packageInfo = context.packageManager.getPackageInfo(
+            context.packageName,
+            PackageManager.GET_PERMISSIONS,
+        )
+        val permissions = packageInfo.requestedPermissions ?: return false
+        val flags = packageInfo.requestedPermissionsFlags ?: return false
+        val index = permissions.indexOf(Manifest.permission.USE_FULL_SCREEN_INTENT)
+        if (index < 0) return false
+        return (flags[index] and android.content.pm.PackageInfo.REQUESTED_PERMISSION_GRANTED) != 0
+    }
+
+    fun hasAllPermissions(context: Context): Boolean = isReady(context)
 
     fun isReady(context: Context): Boolean =
         hasCalendarPermission(context) &&
