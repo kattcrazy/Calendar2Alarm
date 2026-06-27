@@ -20,3 +20,6 @@ Thumbs.db
 keystore.properties
 *.jks
 *.keystore
+
+# Play Console graphics and screenshots (local only)
+/store-assets/
