@@ -21,5 +21,5 @@ keystore.properties
 *.jks
 *.keystore
 
-# Play Console graphics and screenshots (local only)
+# Local graphics and screenshots (optional)
 /store-assets/

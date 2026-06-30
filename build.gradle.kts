@@ -45,15 +45,15 @@ subprojects {
 }
 
 gradle.taskGraph.whenReady {
-    val needsSigning = hasTask(":wear:assembleRelease") || hasTask(":wear:bundleRelease")
+    val needsSigning = hasTask(":wear:assembleRelease")
     if (!needsSigning) return@whenReady
 
     val keystorePropertiesFile = rootProject.file("keystore.properties")
     val keystoreFile = rootProject.file("upload-keystore.jks")
     if (!keystorePropertiesFile.exists() || !keystoreFile.exists()) {
         error(
-            "Release builds must be signed with upload-keystore.jks " +
-                "(Play Console registered key). Copy keystore.properties.example and keep your local keystore.",
+            "Release builds must be signed with upload-keystore.jks. " +
+                "Copy keystore.properties.example and keep your local keystore.",
         )
     }
 }
