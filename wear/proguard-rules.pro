@@ -1,3 +1,3 @@
--keep class kattcrazy.calendar2alarm.** { *; }
--keepclassmembers class kattcrazy.calendar2alarm.CalendarAlarmReceiver { *; }
--keepclassmembers class kattcrazy.calendar2alarm.SnoozeReceiver { *; }
+-keep class kattcrazy.calendartoalarm.** { *; }
+-keepclassmembers class kattcrazy.calendartoalarm.CalendarAlarmReceiver { *; }
+-keepclassmembers class kattcrazy.calendartoalarm.SnoozeReceiver { *; }

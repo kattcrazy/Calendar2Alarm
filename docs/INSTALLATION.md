@@ -1,6 +1,12 @@
 # Installation
 
-Download `calendar2alarm-wear.apk` from [Releases](https://github.com/kattcrazy/Calendar2Alarm/releases).
+Download `calendartoalarm-wear.apk` from [Releases](https://github.com/kattcrazy/Calendar2Alarm/releases).
+
+Package id: `kattcrazy.calendartoalarm` (renamed from `kattcrazy.calendar2alarm`). If you still have the old app installed:
+
+```bash
+adb uninstall kattcrazy.calendar2alarm
+```
 
 You need a PC with [ADB](https://developer.android.com/tools/releases/platform-tools) and wireless debugging enabled on your Wear OS watch.
 
@@ -22,7 +28,7 @@ Galaxy Watch 6/7: if pairing fails, turn off Bluetooth briefly so Wi‑Fi debugg
 ## 2. Install
 
 ```bash
-adb install -r calendar2alarm-wear.apk
+adb install -r calendartoalarm-wear.apk
 ```
 
 ## 3. Set up on the watch

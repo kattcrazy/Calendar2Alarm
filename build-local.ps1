@@ -101,7 +101,7 @@ function Install-WearWithRetry {
 $GradleTask = if ($Release) { "assembleRelease" } else { "assembleDebug" }
 $Variant = if ($Release) { "release" } else { "debug" }
 $DistDir = Join-Path $ProjectRoot "dist"
-$DistName = if ($Release) { "calendar2alarm-wear-release.apk" } else { "calendar2alarm-wear-debug.apk" }
+$DistName = if ($Release) { "calendartoalarm-wear-release.apk" } else { "calendartoalarm-wear-debug.apk" }
 $DistPath = Join-Path $DistDir $DistName
 
 if (-not $JavaHome) { $JavaHome = Find-AndroidStudioJbr }

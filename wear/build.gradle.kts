@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "kattcrazy.calendar2alarm"
+    namespace = "kattcrazy.calendartoalarm"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "kattcrazy.calendar2alarm"
+        applicationId = "kattcrazy.calendartoalarm"
         minSdk = 30
         targetSdk = 35
         versionCode = 1

@@ -51,24 +51,24 @@ jobs:
         run: chmod +x gradlew && ./gradlew :wear:assembleRelease --no-daemon
 
       - name: Prepare release artifact
-        run: cp wear/build/outputs/apk/release/wear-release.apk calendar2alarm-wear.apk
+        run: cp wear/build/outputs/apk/release/wear-release.apk calendartoalarm-wear.apk
 
       - name: Verify upload key signature
         run: |
           APKSIGNER="$ANDROID_HOME/build-tools/35.0.0/apksigner"
           EXPECTED="0c3dd43eba4cf6315ea904fe7335d1eafd7047260eba3af9fd67df0081c0cd82"
-          actual=$("$APKSIGNER" verify --print-certs calendar2alarm-wear.apk 2>&1 | grep -m1 "SHA-256 digest:" | sed 's/.*SHA-256 digest: //' | tr -d ':' | tr '[:upper:]' '[:lower:]')
+          actual=$("$APKSIGNER" verify --print-certs calendartoalarm-wear.apk 2>&1 | grep -m1 "SHA-256 digest:" | sed 's/.*SHA-256 digest: //' | tr -d ':' | tr '[:upper:]' '[:lower:]')
           if [ "$actual" != "$EXPECTED" ]; then
             echo "Wrong signing key: $actual (expected $EXPECTED)"
             exit 1
           fi
-          echo "calendar2alarm-wear.apk signed with upload key"
+          echo "calendartoalarm-wear.apk signed with upload key"
 
       - name: Upload to GitHub Release
         if: github.event_name == 'release'
         uses: softprops/action-gh-release@v2
         with:
-          files: calendar2alarm-wear.apk
+          files: calendartoalarm-wear.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -76,5 +76,5 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v4
         with:
-          name: calendar2alarm-wear
-          path: calendar2alarm-wear.apk
+          name: calendartoalarm-wear
+          path: calendartoalarm-wear.apk
