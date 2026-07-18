@@ -14,8 +14,8 @@ android {
         applicationId = "kattcrazy.calendar2alarm"
         minSdk = 30
         targetSdk = 35
-        versionCode = 3
-        versionName = "1.0.3"
+        versionCode = 1
+        versionName = "1.0.0"
     }
 
     buildTypes {

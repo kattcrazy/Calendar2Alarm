@@ -121,6 +121,7 @@ private fun MainScreen(
     val hasCalendar = remember(refreshTick) { SetupStatus.hasCalendarPermission(context) }
     val hasNotif = remember(refreshTick) { SetupStatus.hasNotificationPermission(context) }
     val hasExact = remember(refreshTick) { SetupStatus.canScheduleExactAlarms(context) }
+    val hasFsi = remember(refreshTick) { SetupStatus.canUseFullScreenIntent(context) }
     val allPermissions = remember(refreshTick) { SetupStatus.hasAllPermissions(context) }
     val enabled = remember(refreshTick) { AppPreferences.isEnabled(context) }
     val closestReminderOnly = remember(refreshTick) { AppPreferences.closestReminderOnly(context) }
@@ -156,6 +157,7 @@ private fun MainScreen(
                         hasCalendar = hasCalendar,
                         hasNotif = hasNotif,
                         hasExact = hasExact,
+                        hasFsi = hasFsi,
                         onRequestCalendar = onRequestCalendar,
                         onRequestNotifications = onRequestNotifications,
                     )
@@ -258,6 +260,7 @@ private fun TransformingLazyColumnScope.permissionsSection(
     hasCalendar: Boolean,
     hasNotif: Boolean,
     hasExact: Boolean,
+    hasFsi: Boolean,
     onRequestCalendar: () -> Unit,
     onRequestNotifications: () -> Unit,
 ) {
@@ -294,6 +297,15 @@ private fun TransformingLazyColumnScope.permissionsSection(
                 modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp).transformedHeight(this, spec),
                 transformation = SurfaceTransformation(spec),
             ) { Text(stringResource(R.string.grant_exact_alarms)) }
+        }
+    }
+    if (!hasFsi) {
+        item {
+            Button(
+                onClick = { SetupIntents.openFullScreenIntentSettings(context) },
+                modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp).transformedHeight(this, spec),
+                transformation = SurfaceTransformation(spec),
+            ) { Text(stringResource(R.string.grant_fsi)) }
         }
     }
 }

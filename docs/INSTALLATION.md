@@ -36,11 +36,4 @@ adb install -r calendar2alarm-wear.apk
 
 Make sure Google Calendar on the watch already shows your upcoming events before expecting alarms to work.
 
-## Optional: permissions via ADB (can be done via app UI)
-
-```bash
-adb shell pm grant kattcrazy.calendar2alarm android.permission.READ_CALENDAR
-adb shell pm grant kattcrazy.calendar2alarm android.permission.POST_NOTIFICATIONS
-```
-
 Re-run after uninstall or reinstall.

@@ -8,6 +8,7 @@
     <string name="status_calendar">Calendar access</string>
     <string name="status_notifications">Notifications</string>
     <string name="status_exact_alarms">Exact alarms</string>
+    <string name="status_fsi">Full-screen alarm</string>
     <string name="status_enabled">Enabled</string>
     <string name="summary_events_found">%1$d events with reminders in the next 7 days</string>
     <string name="status_last_resync">Last resync</string>
@@ -37,6 +38,7 @@
     <string name="grant_calendar">Grant calendar</string>
     <string name="grant_notifications">Grant notifications</string>
     <string name="grant_exact_alarms">Grant alarms</string>
+    <string name="grant_fsi">Grant full-screen</string>
     <string name="test_alarm_button">Test alarm</string>
     <string name="save">Save</string>
     <string name="preview">Preview</string>
@@ -53,8 +55,8 @@
     <string name="privacy_policy_url">https://github.com/kattcrazy/Calendar2Alarm/blob/main/docs/PRIVACY.md</string>
     <string name="alarm_channel_name">Calendar alarms</string>
     <string name="alarm_notification_title">Calendar alarm</string>
-    <string name="test_event_title">Calendar2Alarm</string>
-    <string name="test_event_desc">Full-screen alarms from your calendar reminders on Wear OS</string>
+    <string name="test_event_title">Team standup</string>
+    <string name="test_event_desc">Weekly sync with the product team - bring your blockers</string>
     <string name="open_event_failed">Could not open calendar event</string>
     <string name="alarm_dismiss">Dismiss</string>
     <string name="alarm_snooze">Snooze</string>
