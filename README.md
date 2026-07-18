@@ -1,4 +1,4 @@
-# Calendar2Alarm
+# <img src="app_mark.png" alt="Calendar2Alarm icon" width="36" /> Calendar2Alarm <img src="app_mark.png" alt="Calendar2Alarm icon" width="36" />
 
 When normal notifications aren't enough 😂
 
