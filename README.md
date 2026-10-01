@@ -6,7 +6,7 @@
 </div>
 <!-- /project-directory-status -->
 
-# <img src="app_mark.png" alt="Calendar2Alarm icon" width="36" /> Calendar2Alarm <img src="app_mark.png" alt="Calendar2Alarm icon" width="36" />
+# <img src="app_mark.png" alt="Calendar2Alarm icon" width="36" /> Calendar2Alarm
 
 When normal notifications aren't enough 😂
 
