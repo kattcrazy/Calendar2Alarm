@@ -1,3 +1,11 @@
+<!-- project-directory-status -->
+<div align="center">
+
+[![Not maintained](https://img.shields.io/endpoint?style=for-the-badge&url=https%3A%2F%2Fraw.githubusercontent.com%2Fkattcrazy%2Fkattcrazy%2Fmain%2Fbadges%2FCalendar2Alarm.json)](https://github.com/kattcrazy/kattcrazy/blob/main/PROJECT-DIRECTORY.md) [![Up for adoption - credit required](https://img.shields.io/endpoint?style=for-the-badge&url=https%3A%2F%2Fraw.githubusercontent.com%2Fkattcrazy%2Fkattcrazy%2Fmain%2Fbadges%2FCalendar2Alarm-section.json)](https://github.com/kattcrazy/kattcrazy/blob/main/PROJECT-DIRECTORY.md)
+
+</div>
+<!-- /project-directory-status -->
+
 # <img src="app_mark.png" alt="Calendar2Alarm icon" width="36" /> Calendar2Alarm <img src="app_mark.png" alt="Calendar2Alarm icon" width="36" />
 
 When normal notifications aren't enough 😂
